@@ -11,9 +11,12 @@ for file in os.listdir("./originals"):
     name, extension = file.split(".")
 
     if extension in ['jpg', 'jpeg', 'png']:
-        picture = Image.open("./originals/" + file)
-        picture.save("./compressions/compressed_" + file, optimize = True, quality = 75)
-        n_files += 1
+        try:
+            picture = Image.open("./originals/" + file)
+            picture.save("./compressions/compressed_" + file, optimize = True, quality = 75)
+            n_files += 1
+        except:
+            shutil.copy("./originals/" + file, "./unable_to_compress/" + file)
 
     else:
         shutil.copy("./originals/" + file, "./unable_to_compress/" + file)
